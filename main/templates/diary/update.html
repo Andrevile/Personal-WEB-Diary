@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}수정 "{{ post['title'] }}"{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form method="post" enctype="multipart/form-data">
+    <label for="title">제목</label>
+    <input name="title" id="title"
+      value="{{ request.form['title'] or post['title'] }}">
+    <label for="body">내용</label>
+
+    <textarea name="body" id="body">{{ request.form['body'] or post['body'] }}</textarea>
+    <input type="file" name="reviewImg" id="reviewImg" accept="image/png, image/jpeg">
+    <input type="submit" value="저장">
+  </form>
+  <hr>
+  <form action="{{ url_for('diary.delete', id=post['id']) }}" method="post">
+    <input class="danger" type="submit" value="삭제" onclick="return confirm('정말로 삭제 하시겠습니까?');">
+  </form>
+{% endblock %}

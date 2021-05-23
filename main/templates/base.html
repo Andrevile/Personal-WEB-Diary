@@ -1,0 +1,40 @@
+<!doctype html>
+
+  <title>{% block title %}{% endblock %} - main</title>
+  <style>
+    
+    @import url('https://fonts.googleapis.com/css2?family=Pattaya&display=swap');
+    #container{
+        background-color: white;
+        width: 600px;
+        margin: auto;
+        padding: 20px;
+    }
+</style>
+
+
+<body style="background-color: black;">
+<nav id='container'>
+  <h1 style="font-family:'Pattaya', sans-serif; font-size: 60px; text-align: center;">Personal Diary</h1>
+  <ul style="display: flex; list-style: none; margin: 0; padding: 0;">
+  
+    {% if g.user %}
+      <li><span>{{ g.user['username'] }}</span>
+      <li><a href="{{ url_for('log.logout') }}" style="display: block; padding: 0.5em;">로그아웃</a>
+    {% else %}
+      <li><a href="{{ url_for('log.register') }}" style="display: block; padding: 0.5em;">회원 가입</a>
+      <li><a href="{{ url_for('log.login') }}" style="display: block; padding: 0.5em;">로그인</a>
+    {% endif %}
+  </ul>
+</nav>
+<section id='container'>
+  <header>
+    {% block header %}{% endblock %}
+  </header>
+
+  {% for message in get_flashed_messages() %}
+    <div class="flash">{{ message }}</div>
+  {% endfor %}
+  {% block content %}{% endblock %}
+</body>
+</section>

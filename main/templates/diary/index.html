@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}글 목록{% endblock %}</h1>
+   
+  {% if g.user %}
+    <a class="action" href="{{ url_for('diary.create') }}">글쓰기</a>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  
+  {% for post in posts %}
+  {% if g.user['id'] == post['author_id'] %}
+    <article class="post">
+      <header>
+       
+        <div>
+          <h1>{{ post['title'] }}</h1>
+        </div>
+      </header>
+      <p class="body">{{ post['body'] }}</p>
+      {% if post['picture']%}
+      {% set path="image/"+g.user['id']|string+"/"+post['id']|string+"/1.jpg"| string %}
+      <p><img src="{{url_for('static',filename=path)}}" width="50%"></p>
+     
+      {% endif %}
+      
+      <div class="about">by {{ post['username'] }} on {{ post['created'].strftime('%Y-%m-%d') }}</div>
+      <a class="action" href="{{ url_for('diary.update', id=post['id']) }}">수정</a>
+    </article>
+   
+    {% if not loop.last %}
+      <hr>
+    {% endif %}
+    {% endif %}
+  {% endfor %}
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}새 글{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form method="post" enctype="multipart/form-data">
+    <div>
+    <label for="title">제목</label>
+    <input name="title" id="title" value="{{ request.form['title'] }}">
+    </div>
+    <div>
+    <label for="body">내용</label>
+    <textarea name="body" id="body">{{ request.form['body'] }}</textarea>
+    <input type="file" name="reviewImg" id="reviewImg">
+    </div>
+    <input type="submit" value="저장">
+  </form>
+{% endblock %}
