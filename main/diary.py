@@ -128,13 +128,13 @@ def update(id):
             
             if picture:
                 if post['picture']:
-                    picture.save("./main/static/image/"+str(g.user['id'])+"/"+str(count)+"/"+"1.jpg")
+                    picture.save("./main/static/image/"+str(g.user['id'])+"/"+str(post['id'])+"/"+"1.jpg")
                 else:
-                    os.makedirs("./main/static/image/"+str(g.user['id'])+"/"+str(count),mode=777)
-                    picture.save("./main/static/image/"+str(g.user['id'])+"/"+str(count)+"/"+"1.jpg")
+                    os.makedirs("./main/static/image/"+str(g.user['id'])+"/"+str(post['id']),mode=777)
+                    picture.save("./main/static/image/"+str(g.user['id'])+"/"+str(post['id'])+"/"+"1.jpg")
             else:
                 if post['picture']:
-                    shutil.rmtree("./main/static/image/"+str(g.user['id'])+"/"+str(count))
+                    shutil.rmtree("./main/static/image/"+str(g.user['id'])+"/"+str(post['id']))
 
             
             return redirect(url_for('diary.index'))
